@@ -3,7 +3,7 @@ require 'active_record'
 require_relative 'environment'
 require_relative 'character'
 
-# GET /api/characters - return individual/all tasks as JSON
+# GET /api/characters - return individual/all characters as JSON
 get '/api/characters' do
   name = params['name']
   role = params['role']
@@ -16,7 +16,6 @@ get '/api/characters' do
     characters = Character.where(role: role)
   else
     characters = Character.all.order(role: :ASC)
-
   end
 
   characters.to_json
@@ -24,13 +23,10 @@ end
 
 # POST /api/characters - create a character, read request body as JSON
 post '/api/characters' do
-  p params
   Character.create(name: params['name'], role: params['role']).to_json
 end
 
-
 # PUT /api/characters - update a character, read request body as JSON
-# '/api/characters?name=mercy&role=healer?new_name=harmbe&role=gorilla'
 put '/api/characters' do
   name = params['name']
   role = params['role']
