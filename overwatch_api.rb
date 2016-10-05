@@ -19,11 +19,13 @@ get '/api/characters' do
   end
 
   characters.to_json
+  status 302
 end
 
 # POST /api/characters - create a character, read request body as JSON
 post '/api/characters' do
   Character.create(name: params['name'], role: params['role']).to_json
+  status 201
 end
 
 # PUT /api/characters - update a character, read request body as JSON
@@ -36,10 +38,12 @@ put '/api/characters' do
   characters = Character.find_by(name: name, role: role)
   characters.update(name: new_name, role: new_role)
   characters.to_json
+  status 201
 end
 
 # DELETE /api/characters - delete task, return success/failure status code
 delete '/api/characters' do
   characters = Character.find_by(name: params['name'], role: params['role'])
   characters.destroy
+  status 301
 end
