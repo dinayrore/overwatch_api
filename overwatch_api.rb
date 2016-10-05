@@ -33,14 +33,8 @@ put '/api/characters' do
   new_name = params['new_name']
   new_role = params['new_role']
 
-  if !name.nil?
-    characters = Character.find_by(name: name)
-    characters.update(role: new_role)
-  else
-    characters = Character.find_by(name: name, role: role)
-    characters.update(name: new_name, role: new_role)
-  end
-
+  characters = Character.find_by(name: name, role: role)
+  characters.update(name: new_name, role: new_role)
   characters.to_json
 end
 
